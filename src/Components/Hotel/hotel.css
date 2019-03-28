@@ -1,0 +1,36 @@
+.list-wrap{
+  background: #fff;
+  padding: 10px;
+  margin: 10px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.img-wrap {
+  margin-right: 10px
+}
+.hotel-name {
+  color: #4a4a4a;
+  margin: 0;
+  margin-bottom: 5px
+}
+.hotel-name:hover {
+  color: #0eb550;
+}
+.location {
+  color: #9b9b9b;
+}
+.price-wrap{
+  position: absolute;
+  right: 18px;
+}
+.price-wrap span{
+  color: #4a4a4a;
+  font-weight: bold;
+}
+.sold-out {
+  color: rgb(239, 22, 22) !important;
+}
