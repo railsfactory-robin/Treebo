@@ -10,8 +10,8 @@ export default class Routes extends Component {
     return (
       <Router history={history}>
         <Switch>
-          <PublicLayout path="/" component={Hotel} />
-          <PublicLayout path="/details/:id" component={HotelDetails} />
+          <PublicLayout exact path="/" component={Hotel} />
+          <PublicLayout exact path="/details/:id" component={HotelDetails} />
         </Switch>
       </Router>
     );

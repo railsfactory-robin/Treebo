@@ -1,0 +1,23 @@
+.details-wrap {
+    margin: 34px;
+    background: #fff;
+    padding: 30px;
+    display: flex;
+}
+.details-desc {
+    margin-left: 40px;
+}
+.details-desc h2 , h4, p{
+    margin: 0px;
+    margin-bottom: 10px
+}
+.detail-img-wrap img{
+    width: 100%;
+}
+.details-desc p {
+    display: inline-block;
+    margin-right: 15px;
+}
+.back-btn {
+    padding: 23px 0px 0px 36px;
+}

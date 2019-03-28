@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getHotels } from '../../Actions/HotelActions'
 import { getPrices } from '../../Actions/PriceActions'
 import './hotel.css'
 
 class index extends Component {
   componentDidMount(){
-    this.props.hotelsList()
-    this.props.priceList()
+    if (this.props.hotels && this.props.hotels.length === 0) {
+      this.props.hotelsList()
+      this.props.priceList()
+    }
   }
 
   getLowestPrice(prices){
@@ -32,7 +35,7 @@ class index extends Component {
     if (hotels && hotels.length > 0) {
       return hotels.map((hotel, index)=>{
         return(
-          <a href key={index} className="list-wrap">
+          <Link to={`details/${hotel.id}`} key={index} className="list-wrap">
             <div className="img-wrap">
               <img src="https://cs-images.treebo.com/Treebo_Trend_Dvaraka_Inn/OAK/Oak_9_.jpg?w=180&amp;h=135&amp;fit=crop&amp;fm=pjpg" alt="Treebo Trend Dvaraka Inn"></img>
             </div>
@@ -41,15 +44,16 @@ class index extends Component {
               <span className="location">{hotel.locality}, {hotel.city}</span>
             </div>
             <div className="price-wrap">{this.getLowestPrice(prices[index])}</div>
-          </a>
+          </Link>
         )
       })
     } 
   }
   render() {
-    const { hotels, prices } = this.props
+    const { hotels, prices, fetching } = this.props
     return (
       <div>
+        {fetching && <div className="loader"></div> }
         {this.renderHotelList(hotels, prices)}
       </div>
     )
@@ -63,7 +67,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = state => ({
   hotels: state.hotelReducer.hotels,
-  prices: state.priceReducer.prices
+  prices: state.priceReducer.prices,
+  fetching: state.hotelReducer.fetching
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(index)

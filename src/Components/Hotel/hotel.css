@@ -8,6 +8,7 @@
   width: 50%;
   position: relative;
   cursor: pointer;
+  text-decoration: none;
 }
 .img-wrap {
   margin-right: 10px
@@ -33,4 +34,22 @@
 }
 .sold-out {
   color: rgb(239, 22, 22) !important;
+}
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  z-index: 99;
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
