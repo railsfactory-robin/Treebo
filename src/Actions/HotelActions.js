@@ -2,6 +2,7 @@ import {
     GET_HOTELS_SUCCESS,
     GET_HOTELS_FAILURE,
     GET_HOTELS_REQUEST,
+    GET_HOTEL_SUCCESS,
   } from '../Types/hotel.type';
 
   import Api from './Api';
@@ -36,5 +37,12 @@ import {
         .catch((error) => {
           dispatch(hotelListFailure());
       });
+    }
+  }
+
+  export const getHotel = (id) => {
+    return {
+      type: GET_HOTEL_SUCCESS,
+      id: id
     }
   }

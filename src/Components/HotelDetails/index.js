@@ -3,14 +3,45 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './details.css'
 
+import { getHotels, getHotel } from '../../Actions/HotelActions'
+import { getPrices, getPrice } from '../../Actions/PriceActions'
+import { getHotelDetails } from '../../Actions/HotelDetailsActions'
+
 class index extends Component {
 
   componentDidMount(){
-    // there should be an api call to get the particulat hotel full detials
+    // there should be an api call to get the particulat hotel full detials with id
+    this.props.hotelDetails()
+    // if page refresh happens this api will trigger again
+    if (this.props.hotels && this.props.hotels.length === 0) {
+      this.props.hotelsList()
+      this.props.priceList()
+    }
+  }
+
+  componentDidUpdate(){
+    if (this.props.hotels && this.props.hotels.length > 0) {
+      this.props.getHotelById(this.props.match.params.id)
+    }
+    if (this.props.prices && this.props.prices.length > 0) {
+      this.props.getPriceById(this.props.match.params.id)
+    }
   }
 
   render() {
-    const { hotels, prices } = this.props
+    const { hotel, price, policies, essentials } = this.props
+    let policies_data = policies.map((policy, index) => {
+      return <p key={index}>{policy}</p>
+    })
+    let essentials_data = essentials.map((essential, index) => {
+      return <p key={index}>{essential}</p>
+    })
+    let price_list;
+    if (price) {
+      price_list = Object.keys(price).map((item, index)=> {
+        return <p key={index}> {item} : <span className={`${price[item] ? '' : 'sold-out'}`}>{price[item] ? price[item] : 'SOLD OUT'}</span></p>
+      })
+    }
     return (
       <div>
         <div className="back-btn">
@@ -21,27 +52,18 @@ class index extends Component {
             <img src="https://cs-images.treebo.com/Treebo_9_Marks_Inn/Common1_.jpg?w=591&amp;h=352&amp;fm=pjpg&amp;fit=crop" alt="" />
           </div>
           <div className="details-desc">
-            <h2>TREEBO TREND 9 MARKS INN</h2>
-            <p>Indiranagar, Bangalore</p>
+            <h2>{hotel.name}</h2>
+            <p>{hotel.locality}, {hotel.city}</p>
             <h4>Price:</h4>
-            <p>acacia : 2200</p>
-            <p>oak : 2435</p>
-            <p>maple : 2735</p>
-            <p>mahogany : 3312</p>
+              {price_list}
             <div>
               <div>
                 <h4>Policies</h4>
-                <p>Check-In Time: 12:00pm</p>
-                <p>Checkout-Out time: 11:00am</p>
-                <p>Must carry ID card</p>
+                {policies_data}
               </div>
               <div>
                 <h4>Essentials</h4>
-                <p>AC Room</p>
-                <p>TV</p>
-                <p>WiFi</p>
-                <p>Breakfast</p>
-                <p>Toiletries</p>
+                {essentials_data}
               </div>
             </div>
           </div>
@@ -52,12 +74,20 @@ class index extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+  hotelsList: () => dispatch(getHotels()),
+  priceList: () => dispatch(getPrices()),
+  hotelDetails: () => dispatch(getHotelDetails()),
+  getHotelById: (id) => dispatch(getHotel(id)),
+  getPriceById: (id) => dispatch(getPrice(id))
 })
 
 const mapStateToProps = state => ({
   hotels: state.hotelReducer.hotels,
-  prices: state.priceReducer.prices
+  hotel: state.hotelReducer.hotel,
+  prices: state.priceReducer.prices,
+  price: state.priceReducer.price,
+  policies: state.hotelDetailsReducer.policies,
+  essentials: state.hotelDetailsReducer.essentials
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(index)

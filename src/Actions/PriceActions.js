@@ -2,6 +2,7 @@ import {
     GET_PRICE_SUCCESS,
     GET_PRICE_FAILURE,
     GET_PRICE_REQUEST,
+    GET_PRICE
   } from '../Types/price.type';
 
   import Api from './Api';
@@ -36,5 +37,12 @@ import {
         .catch((error) => {
           dispatch(priceListFailure());
       });
+    }
+  }
+
+  export const getPrice = (id) => {
+    return {
+      type: GET_PRICE,
+      id: id
     }
   }

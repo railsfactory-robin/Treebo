@@ -30,7 +30,7 @@ class index extends Component {
     )
     }
   }
-
+// this function can make it as a new component. 
   renderHotelList(hotels, prices){
     if (hotels && hotels.length > 0) {
       return hotels.map((hotel, index)=>{

@@ -1,3 +1,5 @@
 export const GET_PRICE_SUCCESS = 'GET_PRICE_SUCCESS';
 export const GET_PRICE_FAILURE = 'GET_PRICE_FAILURE';
 export const GET_PRICE_REQUEST = 'GET_PRICE_REQUEST';
+
+export const GET_PRICE = 'GET_PRICE';
